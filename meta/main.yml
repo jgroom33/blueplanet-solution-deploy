@@ -32,10 +32,9 @@ galaxy_info:
   #   versions:
   #   - all
   #   - 25
-  - name: BluePlanet
+  - name: Ubuntu
     versions:
-    - 19.06
-    - 19.10
+    - bionic
 
   galaxy_tags:
     - ciena
