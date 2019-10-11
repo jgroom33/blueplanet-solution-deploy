@@ -1,6 +1,7 @@
 - name: get solutions
   raw: curl localhost/solutionmanager/api/v1/solutions
   register: result
+  failed_when: ('503 Service Unavailable' in result.stdout)
 - name: set solutions fact
   set_fact:
     solutions: "{{ result.stdout }}"

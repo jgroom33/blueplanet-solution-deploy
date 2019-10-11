@@ -42,8 +42,8 @@ Example Playbook
 - hosts: mdso
   gather_facts: false
   vars:
-    blueplanet_solution_docker_username: foo
-    blueplanet_solution_docker_password: bar
+    blueplanet_solution_docker_username: "{{ lookup('env','BP_GIT_USERNAME') }}"
+    blueplanet_solution_docker_password: "{{ lookup('env','BP_GIT_TOKEN') }}"
     blueplanet_solution_lineup_file: lineup.yml
   roles:
       - blueplanet-solution-deploy
