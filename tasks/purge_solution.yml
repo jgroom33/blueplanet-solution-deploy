@@ -1,0 +1,2 @@
+  - name: purging solution {{ item.name }}
+    raw: sudo solman "solution_purge -y {{ item.name }}"

@@ -1,0 +1,17 @@
+- block:
+  - name: Read existing lineup file
+    include_vars:
+      file: lineup.yml
+      name: lineup
+    register: read_lineup
+    failed_when: no
+  - name: lineup file not parsable yaml
+    debug: msg="Could not read file- {{ read_lineup.message }}"
+    when: read_lineup.message is defined
+    changed_when: read_lineup.message is defined
+  - name: lineup file is parsable yaml
+    debug: msg="Could not read file- {{ read_lineup.message }}"
+    when: read_lineup.message is defined
+    failed_when: read_lineup.message is defined
+  - name: Resulting Lineup
+    debug: var=lineup

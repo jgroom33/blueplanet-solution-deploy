@@ -1,0 +1,7 @@
+- name: Create registry file on MDSO server
+  template:
+    src: registry.j2
+    dest: /etc/bp2/solutionmanager/registry
+    mode: '0644'
+- name: redeploying solman
+  command: bp2-site redeploy solutionmanager

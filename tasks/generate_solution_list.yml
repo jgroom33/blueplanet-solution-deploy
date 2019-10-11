@@ -1,0 +1,47 @@
+- name: Set seperator
+  set_fact:
+    sep: /
+  when: blueplanet_solution_docker_type == 'gitlab'
+- name: Set seperator
+  set_fact:
+    sep: .
+  when: blueplanet_solution_docker_type != 'gitlab'
+
+- name: Append platform_solution to list
+  set_fact:
+    blueplanet_solution_SdiNames_short: "{{ blueplanet_solution_SdiNames_short + [ lineup.docker_registry.url + sep + lineup.platform_solution.vendor + sep + lineup.platform_solution.name + ':' + lineup.platform_solution.version ] }}"
+    blueplanet_solution_SdiNames: "{{ blueplanet_solution_SdiNames + [ lineup.docker_registry.url + sep + lineup.platform_solution.vendor + sep + 'solution-' + lineup.platform_solution.name + ':' + lineup.platform_solution.version ] }}"
+    when: lineup.platform_solution is defined
+
+- name: Append application_solution to list
+  set_fact:
+    blueplanet_solution_SdiNames_short: "{{ blueplanet_solution_SdiNames_short + [ lineup.docker_registry.url + sep + lineup.application_solution.vendor + sep + lineup.application_solution.name + ':' + lineup.application_solution.version ] }}"
+    blueplanet_solution_SdiNames: "{{ blueplanet_solution_SdiNames + [ lineup.docker_registry.url + sep + lineup.application_solution.vendor + sep + 'solution-' + lineup.application_solution.name + ':' + lineup.application_solution.version ] }}"
+    when: lineup.application_solution is defined
+
+- name: Append additional_solutions to list
+  set_fact:
+    blueplanet_solution_SdiNames_short: "{{ blueplanet_solution_SdiNames_short + [ lineup.docker_registry.url + sep + item.value.vendor + sep + item.key + ':' + item.value.version ] }}"
+    blueplanet_solution_SdiNames: "{{ blueplanet_solution_SdiNames + [ lineup.docker_registry.url + sep + item.value.vendor + sep + 'solution-' + item.key + ':' + item.value.version ] }}"
+  when: lineup.additional_solutions is defined
+        and lineup.order_additional_solutions is not defined
+  with_dict: "{{ lineup.additional_solutions }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Append additional_solutions to list
+  set_fact:
+    blueplanet_solution_SdiNames_short: "{{ blueplanet_solution_SdiNames_short + [ lineup.docker_registry.url + sep + lineup['additional_solutions'][item]['vendor'] + sep + item + ':' + lineup['additional_solutions'][item]['version'] ] }}"
+    blueplanet_solution_SdiNames: "{{ blueplanet_solution_SdiNames + [ lineup.docker_registry.url + sep + lineup['additional_solutions'][item]['vendor'] + sep + 'solution-' + item + ':' + lineup['additional_solutions'][item]['version'] ] }}"
+  when: lineup.additional_solutions is defined
+        and lineup.order_additional_solutions is defined
+  with_items: "{{ lineup.order_additional_solutions }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Print desired solutions
+  debug:
+    var: blueplanet_solution_SdiNames_short
+- name: Print desired solutions
+  debug:
+    var: blueplanet_solution_SdiNames

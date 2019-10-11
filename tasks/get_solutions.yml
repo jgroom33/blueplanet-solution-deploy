@@ -1,0 +1,9 @@
+- name: get solutions
+  raw: curl localhost/solutionmanager/api/v1/solutions
+  register: result
+- name: set solutions fact
+  set_fact:
+    solutions: "{{ result.stdout }}"
+- name: print solutions
+  debug:
+    var: solutions

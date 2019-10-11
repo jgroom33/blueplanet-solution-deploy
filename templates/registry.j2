@@ -1,0 +1,7 @@
+url: {{ blueplanet_solution_docker_url }}
+username: {{ blueplanet_solution_docker_username }}
+password: {{ blueplanet_solution_docker_password }}
+{% if blueplanet_solution_docker_type == 'gitlab' %}
+api_url: git.blueplanet.com
+type: gitlab
+{% endif %}

@@ -1,0 +1,30 @@
+---
+# tasks file for blueplanet-solution-deploy
+- name: read lineup
+  import_tasks: read_lineup.yml
+  tags:
+    - always
+- name: Set Registry
+  become: true
+  import_tasks: set_registry.yml
+  tags:
+    - registry
+- name: get installed solutions
+  import_tasks: get_solutions.yml
+  tags:
+    - deploy
+- name: build desired list
+  import_tasks: generate_solution_list.yml
+  tags:
+    - deploy
+- name: Purge non-matching solutions
+  include_tasks: purge_solution.yml
+  when: item.SdiName not in blueplanet_solution_SdiNames
+  loop: "{{ solutions['items'] }}"
+  tags:
+    - deploy
+- name: Deploy Solutions
+  include_tasks: solution-deploy.yml
+  loop: "{{ blueplanet_solution_SdiNames_short }}"
+  tags:
+    - deploy

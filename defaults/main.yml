@@ -1,0 +1,8 @@
+---
+# defaults file for blueplanet-solution-deploy
+blueplanet_solution_docker_type: gitlab
+blueplanet_solution_docker_url: registry.blueplanet.com
+blueplanet_solution_docker_username: none
+blueplanet_solution_docker_password: none
+blueplanet_solution_SdiNames_short: []
+blueplanet_solution_SdiNames: []

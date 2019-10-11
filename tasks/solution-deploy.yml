@@ -1,0 +1,32 @@
+---
+#
+# Deploy the solution
+#
+# "Parameters"
+#  - item : docker image name of solution  - including tag
+#               e.g registry.blueplanet.com/blueplanet/mcp:1.1.1
+#
+
+# I have seen a couple of '500 Internal Server Error' - that subsequently work
+# So try a few times
+
+- block:
+  - debug:
+      msg: "Deploying: {{ item }}"
+
+  - name: Deploy {{ item }}
+    command: solman "solution_deploy {{ item }}"
+    register: solution_install
+    changed_when: not ('App Containers Already Started' in solution_install.stdout)
+    until: solution_install.rc|int == 0
+    retries: 3
+    delay: 10
+    failed_when: no
+
+  - name: Output from deploy
+    debug: var=solution_install.stdout_lines
+    changed_when: solution_install is changed
+    when: solution_install is changed
+    failed_when: solution_install.rc != 0
+  tags: deploy
+  become: true
