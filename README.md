@@ -1,4 +1,4 @@
-Role Name
+Blue planet solution deploy
 =========
 
 An ansible role to set the solutions for a Blue Planet server.
