@@ -1,5 +1,8 @@
----
-- hosts: localhost
-  remote_user: root
+- hosts: [ all ]
+  gather_facts: false
+  vars:
+    blueplanet_solution_docker_username: jgroom
+    blueplanet_solution_docker_password: "{{ lookup('env','GL_API_TOKEN') }}"
+    blueplanet_solution_lineup_file: lineup.yml
   roles:
-    - blueplanet-solution-deploy
+      - { role: ../../blueplanet-solution-deploy }

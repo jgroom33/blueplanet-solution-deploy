@@ -1,0 +1,6 @@
+all:
+  hosts:
+    mdso:
+      ansible_host: 10.182.18.132
+      ansible_user: bpadmin
+      ansible_ssh_pass: bpadminpw
