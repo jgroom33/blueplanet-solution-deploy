@@ -4,5 +4,9 @@ blueplanet_solution_docker_type: gitlab
 blueplanet_solution_docker_url: registry.blueplanet.com
 blueplanet_solution_docker_username: none
 blueplanet_solution_docker_password: none
+blueplanet_solution_installed: []
+blueplanet_solution_desired: []
 blueplanet_solution_SdiNames_short: []
 blueplanet_solution_SdiNames: []
+blueplanet_solution_deployed: []
+blueplanet_solution_purge: false

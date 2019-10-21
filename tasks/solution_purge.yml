@@ -1,0 +1,13 @@
+---
+- name: purging solution
+  raw: sudo solman "solution_purge -y {{ item.name }}"
+  # debug:
+  #   msg: sudo solman "solution_purge -y {{ item.name }}"
+  when: (outer_item.SolutionType == item.SolutionType) and (outer_item.Version == item.Version) and blueplanet_solution_purge
+  loop: "{{ blueplanet_solution_installed_full }}"
+- name: undeploying solution
+  raw: sudo solman "solution_undeploy -y {{ item.name }} --purge-host-vols"
+  # debug:
+  #   msg: sudo solman "solution_undeploy -y {{ item.name }} --purge-host-vols"
+  when: (outer_item.SolutionType == item.SolutionType) and (outer_item.Version == item.Version) and not blueplanet_solution_purge
+  loop: "{{ blueplanet_solution_installed_full }}"

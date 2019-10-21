@@ -13,18 +13,28 @@
   import_tasks: get_solutions.yml
   tags:
     - deploy
+- name: get get_solutions_deployed
+  import_tasks: get_solutions_deployed.yml
+  tags:
+    - deploy
 - name: build desired list
   import_tasks: generate_solution_list.yml
   tags:
     - deploy
 - name: Purge non-matching solutions
-  include_tasks: purge_solution.yml
-  when: item.SdiName not in blueplanet_solution_SdiNames
-  loop: "{{ solutions['items'] }}"
+  vars:
+    purge_list: "{{ blueplanet_solution_installed | difference(blueplanet_solution_desired) }}"
+  include_tasks: solution_purge.yml
   tags:
     - deploy
+  loop: "{{ purge_list }}"
+  loop_control:
+    loop_var: outer_item
+
 - name: Deploy Solutions
-  include_tasks: solution-deploy.yml
-  loop: "{{ blueplanet_solution_SdiNames_short }}"
-  tags:
-    - deploy
+  vars:
+    deploy_list: "{{ blueplanet_solution_desired | difference(blueplanet_solution_installed) }}"
+  include_tasks: solution_deploy.yml
+  loop: "{{ deploy_list }}"
+  loop_control:
+    loop_var: outer_item

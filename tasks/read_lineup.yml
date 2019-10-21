@@ -14,4 +14,6 @@
     when: read_lineup.message is defined
     failed_when: read_lineup.message is defined
   - name: Resulting Lineup
-    debug: var=lineup
+    debug: 
+      var: lineup
+      verbosity: 3

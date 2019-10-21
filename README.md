@@ -20,6 +20,7 @@ Role Variables
 | `blueplanet_solution_docker_username`  | none                    | Username for the registry      |
 | `blueplanet_solution_docker_password`  | none                    | Password for the registry      |
 | `blueplanet_solution_lineup_file`      | ./lineup.yml            | location of lineup file        |
+| `blueplanet_solution_purge`            | false                   | purge old solutions            |
 
 >  ***NOTE: Creating a Gitlab Registry Access Token
 >  To configure a site to utilize the Gitlab registry, an Access Token is required.

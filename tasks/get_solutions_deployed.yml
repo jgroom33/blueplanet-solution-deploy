@@ -1,0 +1,13 @@
+- name: get solutions_deployed
+  raw: curl localhost/solutionmanager/api/v1/solutions/states?filter=state=deployed
+  register: result
+- name: set installed solutions fact
+  vars:
+    tmp: "{{ result.stdout }}"
+  set_fact:
+    blueplanet_solution_deployed: "{{ blueplanet_solution_deployed + [ { 'SolutionType': item.name.split(':')[-2].split('.')[-1], 'Version': item.name.split(':')[-1] } ] }}"
+  with_items: "{{ tmp['items'] }}"
+  when: tmp['items'] is defined
+- name: print blueplanet_solution_deployed
+  debug:
+    var: blueplanet_solution_deployed

@@ -1,0 +1,5 @@
+---
+- name: deploy solution {{ item }}
+  include_tasks: solution_deploy_item.yml
+  when: (outer_item.SolutionType == item.split(':')[-2].split('/')[-1]) and (outer_item.Version == item.split(':')[-1])
+  loop: "{{ blueplanet_solution_SdiNames_short }}"

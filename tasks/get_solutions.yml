@@ -2,11 +2,21 @@
   raw: curl localhost/solutionmanager/api/v1/solutions
   register: result
   until: not ('503 Service Unavailable' in result.stdout)
-  retries: 5
+  retries: 15
   delay: 3
-- name: set solutions fact
+- name: set installed solutions fact
+  vars:
+    tmp: "{{ result.stdout }}"
   set_fact:
-    solutions: "{{ result.stdout }}"
-- name: print solutions
+    blueplanet_solution_installed: "{{ blueplanet_solution_installed + [ { 'SolutionType': item.SolutionType, 'Version': item.Version } ] }}"
+  with_items: "{{ tmp['items'] }}"
+  when: tmp['items'] is defined
+- name: set installed solutions full fact
+  vars:
+    tmp: "{{ result.stdout }}"
+  set_fact:
+    blueplanet_solution_installed_full: "{{ tmp['items'] }}"
+  when: tmp['items'] is defined
+- name: print blueplanet_solution_installed
   debug:
-    var: solutions
+    var: blueplanet_solution_installed
