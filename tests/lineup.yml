@@ -2,27 +2,26 @@ docker_registry:
   url: registry.blueplanet.com
 
 platform_solution:
-# Pre GA - installed from artifactory manually
+# registry.blueplanet.com/blueplanet/bpps/solution-platform:19.10.01
   name: platform
   vendor: blueplanet/bpps
   version: 19.10.01
 application_solution:
-# Pre GA - installed from artifactory manually
+# registry.blueplanet.com/mdso/19.06/solution-orchestrate:19.10.01
   name: orchestrate
   vendor: mdso/19.10
   version: 19.10.1-43
 additional_solutions:
-# Pre GA - installed from artifactory manually
+# registry.blueplanet.com/mdso/19.06/solution-orchestrate_ui:19.10.0-342
   orchestrate_ui:
     name: orchestrate_ui
     vendor: mdso/19.10
     version: 19.10.0-342
-# registry.blueplanet.com/blueplanet/resourceadapters/junipermx_yang_ra/develop/solution-junipermxra:1.0.0.1910
+# registry.blueplanet.com/blueplanet/resourceadapters/junipermx_yang_ra/master/solution-junipermxra:1.0.0.1910
   junipermxra:
     name: junipermxra
-    vendor: blueplanet/resourceadapters/junipermx_yang_ra/develop
+    vendor: mthamman/junipermx_yang_ra/develop
     version: 1.0.2.1910.fff65643
-# registry.blueplanet.com.blueplanet.resourceadapters.ciscoiosxr_ra.develop.raciscong:1.0.0.1910.d6a406e3
   raciscong:
     name: raciscong
     vendor: blueplanet/resourceadapters/ciscoiosxr_ra/develop

@@ -1,9 +1,17 @@
-- name: get solutions
+- name: await solman
   raw: curl localhost/solutionmanager/api/v1/solutions
   register: result
   until: not ('503 Service Unavailable' in result.stdout)
   retries: 15
   delay: 3
+  check_mode: false
+- name: get solutions
+  raw: curl localhost/solutionmanager/api/v1/solutions
+  register: result
+  until: ('items' in result.stdout)
+  retries: 2
+  delay: 5
+  check_mode: false
 - name: set installed solutions fact
   vars:
     tmp: "{{ result.stdout }}"
